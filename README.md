@@ -57,7 +57,7 @@ uv run chess
 
 On the start screen you choose your color and whether to play the bot or another person. You move by clicking a piece and then its target square. `<` and `>` take moves back and forward, and `GIVE UP` resigns. Each bot move takes a few seconds, because the search runs 1000 simulations by default. For faster moves, use `uv run chess --simulations 400`, or `--no-mcts` for the raw policy. `--help` lists all options.
 
-`CHESS2_MODEL` points to a different weights file (same as `--model`).
+To play against your own trained weights instead of the shipped ones, pass the file with `--model path/to/weights.pth`, or set the environment variable `CHESS2_MODEL` to that path.
 
 You don't need Stockfish to play. It's only used by the scripts in `examples/` that play against it (`play_strength.py`, `record_game.py`). For those, install it (e.g. `brew install stockfish`), and set `STOCKFISH_PATH` if it isn't on your PATH.
 
