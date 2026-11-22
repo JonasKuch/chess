@@ -8,7 +8,7 @@ A chess game I wrote from scratch in Python, with a pygame GUI and a small Alpha
 
 ## What this is
 
-I started this in 2024 as a side project, as an exercise in writing the rules of chess myself: piece movement, check, castling, en passant, promotion, threefold repetition. All of that lives in my own engine (`board.py`, `pieces/`), and the GUI and human moves run on it. The first version lived in a separate repo.
+I started this in 2024 as a side project to practice writing code and to learn deep learning. The first part was writing the rules of chess myself: piece movement, check, castling, en passant, promotion, threefold repetition. All of that lives in my own engine (`board.py`, `pieces/`), and the GUI and human moves run on it. The first version lived in a separate repo.
 
 Later I added a bot. The first version was a much bigger network with only a policy head. In 2026 I went back to it with Claude as a reviewer and pair programmer. It found the encoding bug described below, suggested adding a value head and shrinking the network, and helped me implement the tree search quickly. The value head is what makes the search possible, and the smaller network is what makes it fast enough. Together this made the bot a lot stronger. The rules, the GUI, the data pipeline and the original bot were written without AI tools.
 
