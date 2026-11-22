@@ -8,9 +8,11 @@ A chess game I wrote from scratch in Python, with a pygame GUI and a small Alpha
 
 ## What this is
 
-It started as an exercise in writing the rules of chess myself: piece movement, check, castling, en passant, promotion, threefold repetition. All of that lives in my own engine (`board.py`, `pieces/`), and the GUI and human moves run on it.
+I started this in 2024 as a side project, as an exercise in writing the rules of chess myself: piece movement, check, castling, en passant, promotion, threefold repetition. All of that lives in my own engine (`board.py`, `pieces/`), and the GUI and human moves run on it. The first version lived in a separate repo.
 
-Later I added a bot. It is a policy/value network combined with Monte Carlo tree search, roughly the AlphaZero recipe, but trained by supervised learning on existing games instead of self-play. For the bot's search I use [python-chess](https://python-chess.readthedocs.io/) for move generation, because it is much faster than my own engine.
+Later I added a bot. The first version was a much bigger network with only a policy head. In 2026 I went back to it with Claude as a reviewer and pair programmer. It found the encoding bug described below, suggested adding a value head and shrinking the network, and helped me implement the tree search quickly. The value head is what makes the search possible, and the smaller network is what makes it fast enough. Together this made the bot a lot stronger. The rules, the GUI, the data pipeline and the original bot were written without AI tools.
+
+The bot is now a policy/value network combined with Monte Carlo tree search, roughly the AlphaZero recipe, but trained by supervised learning on existing games instead of self-play. For the bot's search I use [python-chess](https://python-chess.readthedocs.io/) for move generation, because it is much faster than my own engine.
 
 ## How the bot works
 
@@ -39,7 +41,7 @@ python -m chess2.bot.train
 
 The data isn't in the repo. To train yourself, download [`ccrl-v3.tar.bz2`](https://storage.lczero.org/files/ccrl-v3.tar.bz2) (11 GB) into `src/chess2/bot/data_leela/`. The trained weights are in the repo: `src/chess2/bot/weights/chess2_rb6_c96.pth`.
 
-One bug took me a while to find: the board encoding at play time didn't match the training data for White. Leela mirrors the files in its bitboards, and that mirroring was missing on the inference side. The bot only played properly as Black. Castling had a similar problem: Leela writes it as king-takes-rook (`e1h1`), so the bot almost never castled. `tests/test_encoding.py` now rebuilds real training positions and checks that both paths produce identical tensors and move indices.
+The bug Claude found: the board encoding at play time didn't match the training data for White. Leela mirrors the files in its bitboards, and that mirroring was missing on the inference side. The bot only played properly as Black. Castling had a similar problem: Leela writes it as king-takes-rook (`e1h1`), so the bot almost never castled. `tests/test_encoding.py` now rebuilds real training positions and checks that both paths produce identical tensors and move indices.
 
 ## Try it
 
