@@ -1,4 +1,4 @@
-# chess2
+# chess
 
 A chess game I wrote from scratch in Python, with a pygame GUI and a small AlphaZero-style bot to play against.
 
@@ -46,8 +46,8 @@ One bug took me a while to find: the board encoding at play time didn't match th
 You need Python 3.13+.
 
 ```bash
-git clone https://github.com/JonasKuch/chess2.git
-cd chess2
+git clone https://github.com/JonasKuch/chess.git
+cd chess
 uv run chess
 ```
 
