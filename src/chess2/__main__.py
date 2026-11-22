@@ -1,5 +1,5 @@
 """
-Start the GUI. Installed as the `chess2` command, so `uv run chess2` works,
+Start the GUI. Installed as the `chess` command, so `uv run chess` works,
 and `python -m chess2` does the same.
 """
 
@@ -7,7 +7,7 @@ import argparse
 
 
 def main():
-    parser = argparse.ArgumentParser(prog="chess2", description="Play chess against the neural-net bot.")
+    parser = argparse.ArgumentParser(prog="chess", description="Play chess against the neural-net bot.")
     parser.add_argument("--simulations", type=int, default=1000,
                         help="MCTS simulations per bot move (default 1000; below ~400 the bot hangs pieces)")
     parser.add_argument("--no-mcts", action="store_true",
